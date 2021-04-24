@@ -11,10 +11,11 @@ public class Main {
     static int sizedata = 0;
     public static int page = 1;
     public static List<WidgetListItem> listItems;
-
+   public static List<String>numbers;
     public static void main(String[] args) throws IOException, InterruptedException {
 System.out.print("start .......................................");
         System.out.print("\n place wait  .......................................");
+        numbers=new ArrayList<>();
         getAgainData(page);
     }
 
@@ -23,7 +24,15 @@ System.out.print("start .......................................");
         String  number= Repository.getnumberdivar(widgetList.get(count).getData().getToken());
         if (number != null) {
             if (!number.equals("")) {
-                System.out.print("\n" + number);
+                if (numbers != null||numbers.size()!=0) {
+                    if (!numbers.contains(number)) {
+                        numbers.add(number);
+                        System.out.print("\n" + number);
+                    }
+
+                }else {
+                    numbers.add(number);
+                }
             }
         }
         //sizedata=count-1;
@@ -35,10 +44,11 @@ System.out.print("start .......................................");
     }
 
     public static void getAgainData(int page) throws IOException, InterruptedException {
-        String s = Repository.GetData(page, "for-the-home");
+        String s = Repository.GetData(page, "mobile-tablet");
         DivrResponse divrResponse = new Gson().fromJson(s, DivrResponse.class);
         if (divrResponse != null) {
             listItems = new ArrayList<>();
+
             listItems.addAll(divrResponse.getWidgetList());
             Thread.sleep(10000);
             showNumer(sizedata, divrResponse.getWidgetList());

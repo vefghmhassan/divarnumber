@@ -31,7 +31,7 @@ public class Repository {
             e.printStackTrace();
         }
 
-        return num.replace("(پنهان‌شده؛ چت کنید)", "");
+        return num.replace("(پنهان‌شده؛ چت کنید)", "").replace("(پنهان‌شده)","");
 
     }
 

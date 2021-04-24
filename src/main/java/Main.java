@@ -14,7 +14,7 @@ public class Main {
    public static List<String>numbers;
     public static void main(String[] args) throws IOException, InterruptedException {
 System.out.print("start .......................................");
-        System.out.print("\n place wait  .......................................");
+        System.out.print("\n  wait  .......................................");
         numbers=new ArrayList<>();
         getAgainData(page);
     }
@@ -44,7 +44,7 @@ System.out.print("start .......................................");
     }
 
     public static void getAgainData(int page) throws IOException, InterruptedException {
-        String s = Repository.GetData(page, "mobile-tablet");
+        String s = Repository.GetData(page, "for-the-home");
         DivrResponse divrResponse = new Gson().fromJson(s, DivrResponse.class);
         if (divrResponse != null) {
             listItems = new ArrayList<>();

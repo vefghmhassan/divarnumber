@@ -1,3 +1,4 @@
+import Models.Token;
 import Models.divar.CategoryDTO;
 import Models.divar.Divar;
 import Models.divar.JsonSchemaDTO;
@@ -11,11 +12,18 @@ import java.io.IOException;
 public class Repository {
     public static String getnumberdivar(String link) {
         String num = "";
+        Token token=null;
+        if (Constants.getToken() != null) {
+            token=Constants.getToken();
+        }else {
+            System.console().flush();
+        }
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder().url("https://api.divar.ir/v8/posts/" + link + "/contact")
                 .method("GET", null)
                 .addHeader("Authorization",
-                        Constants.getToken())
+                        token.token
+                        )
                 .build();
         Response response;
         try {
@@ -23,9 +31,11 @@ public class Repository {
             if (response.code()==200) {
                 NumberDivar nm = new Gson().fromJson(response.body().string(), NumberDivar.class);
                 num = nm.widgets.contact.phone;
-            }else {
+            }else  if (response.code()==429){
+                token.setExpire(true);
                 getnumberdivar(link);
             }
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

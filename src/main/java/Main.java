@@ -16,7 +16,8 @@ public class Main {
 System.out.print("start .......................................");
         System.out.print("\n  wait  .......................................");
         numbers=new ArrayList<>();
-        getAgainData(page);
+      getAgainData(page);
+      //  Repository.testweb();
     }
 
 
@@ -37,6 +38,7 @@ System.out.print("start .......................................");
         }
         //sizedata=count-1;
         if (count != widgetList.size() - 1) {
+            Thread.sleep(6000);
             showNumer(count + 1, widgetList);
         } else {
             getAgainData(page + 1);
@@ -50,7 +52,7 @@ System.out.print("start .......................................");
             listItems = new ArrayList<>();
 
             listItems.addAll(divrResponse.getWidgetList());
-            Thread.sleep(10000);
+            Thread.sleep(6000);
             showNumer(sizedata, divrResponse.getWidgetList());
 
         }
